@@ -1,0 +1,1 @@
+export const CHAT_GRPC_SERVICE = 'CHAT_GRPC_SERVICE';

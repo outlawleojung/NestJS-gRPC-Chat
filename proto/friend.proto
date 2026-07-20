@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package friend;
+
+service FriendService {
+  rpc AddFriend (AddFriendRequest) returns (Friendship);
+  rpc ListFriends (ListFriendsRequest) returns (ListFriendsResponse);
+  rpc AreFriends (AreFriendsRequest) returns (AreFriendsResponse);
+}
+
+message AddFriendRequest {
+  string userId = 1;
+  string targetUserId = 2;
+}
+
+message ListFriendsRequest {
+  string userId = 1;
+}
+
+message ListFriendsResponse {
+  repeated Friendship friends = 1;
+}
+
+message AreFriendsRequest {
+  string userId = 1;
+  repeated string targetUserIds = 2;
+}
+
+message AreFriendsResponse {
+  // 각 targetUserId 순서에 대응 (true/false)
+  repeated bool result = 1;
+}
+
+message Friendship {
+  string id = 1;
+  string userId = 2;
+  string targetUserId = 3;
+  int64 createdAt = 4;
+}

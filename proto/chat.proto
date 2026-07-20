@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package chat;
+
+service ChatService {
+  // 채팅 룸 생성
+  rpc CreateRoom (CreateRoomRequest) returns (Room);
+
+  // 룸의 메시지 목록 조회 (커서 페이지네이션)
+  rpc ListMessages (ListMessagesRequest) returns (ListMessagesResponse);
+
+  // 메시지 저장 (Realtime-Hub가 소켓 이벤트를 받은 뒤 이 RPC로 영속화)
+  rpc SaveMessage (SaveMessageRequest) returns (Message);
+}
+
+message CreateRoomRequest {
+  repeated string participantIds = 1;
+}
+
+message Room {
+  string id = 1;
+  repeated string participantIds = 2;
+  int64 createdAt = 3;
+}
+
+message ListMessagesRequest {
+  string roomId = 1;
+  string cursor = 2;    // 마지막으로 받은 메시지 id (없으면 최신부터)
+  int32 limit = 3;
+}
+
+message ListMessagesResponse {
+  repeated Message messages = 1;
+  string nextCursor = 2;
+}
+
+message SaveMessageRequest {
+  string roomId = 1;
+  string senderId = 2;
+  string content = 3;
+}
+
+message Message {
+  string id = 1;
+  string roomId = 2;
+  string senderId = 3;
+  string content = 4;
+  int64 createdAt = 5;
+}
