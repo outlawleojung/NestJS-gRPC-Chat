@@ -12,6 +12,7 @@ async function bootstrap(): Promise<void> {
         url: process.env.CHAT_GRPC_URL ?? '0.0.0.0:5002',
         package: CHAT_PACKAGE,
         protoPath: protoPath('chat.proto'),
+        loader: { longs: String, enums: String },
       },
     },
   );

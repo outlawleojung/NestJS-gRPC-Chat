@@ -11,7 +11,7 @@ services:
     image: redis:7-alpine
     container_name: nestjs-grpc-chat-redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
 
   postgres:
     image: postgres:16-alpine

@@ -4,10 +4,7 @@
   "sourceRoot": "apps/gateway/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "webpack": false,
-    "assets": [
-      { "include": "../../../proto/*.proto", "outDir": "dist/proto", "watchAssets": true }
-    ]
+    "webpack": false
   },
   "monorepo": true,
   "root": "apps/gateway",

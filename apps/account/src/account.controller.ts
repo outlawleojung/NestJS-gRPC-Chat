@@ -9,7 +9,7 @@ function toDto(user: UserEntity) {
     id: user.id,
     email: user.email,
     nickname: user.nickname,
-    createdAt: user.createdAt.getTime().toString(),
+    createdAt: user.createdAt.toISOString(),
   };
 }
 

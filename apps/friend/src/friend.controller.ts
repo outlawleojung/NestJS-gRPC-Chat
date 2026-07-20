@@ -9,7 +9,7 @@ function toDto(f: FriendshipEntity) {
     id: f.id,
     userId: f.userId,
     targetUserId: f.targetUserId,
-    createdAt: f.createdAt.getTime().toString(),
+    createdAt: f.createdAt.toISOString(),
   };
 }
 

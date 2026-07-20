@@ -8,7 +8,7 @@ function toRoomDto(room: ChatRoomEntity) {
   return {
     id: room.id,
     participantIds: (room.members ?? []).map((m) => m.userId),
-    createdAt: room.createdAt.getTime().toString(),
+    createdAt: room.createdAt.toISOString(),
   };
 }
 
@@ -18,7 +18,7 @@ function toMessageDto(m: MessageEntity) {
     roomId: m.roomId,
     senderId: m.senderId,
     content: m.content,
-    createdAt: m.createdAt.getTime().toString(),
+    createdAt: m.createdAt.toISOString(),
   };
 }
 

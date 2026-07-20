@@ -9,5 +9,5 @@ export interface Account {
   id: string;
   email: string;
   nickname: string;
-  createdAt: string; // int64 → string in grpc-js
+  createdAt: string; // ISO 8601
 }

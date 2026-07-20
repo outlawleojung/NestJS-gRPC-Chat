@@ -35,5 +35,5 @@ message Friendship {
   string id = 1;
   string userId = 2;
   string targetUserId = 3;
-  int64 createdAt = 4;
+  string createdAt = 4;  // ISO 8601
 }

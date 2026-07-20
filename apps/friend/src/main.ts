@@ -12,6 +12,7 @@ async function bootstrap(): Promise<void> {
         url: process.env.FRIEND_GRPC_URL ?? '0.0.0.0:5003',
         package: FRIEND_PACKAGE,
         protoPath: protoPath('friend.proto'),
+        loader: { longs: String, enums: String },
       },
     },
   );

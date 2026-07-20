@@ -17,16 +17,16 @@ export class ChatRoomRepository extends BaseRepository<ChatRoomEntity> {
    *  - 메시지 저장 시 seq_id 채번용
    */
   async incrementSeq(roomId: string): Promise<number> {
-    const result: { lastSeqId: string }[] = await this.repo.query(
-      `UPDATE chat_rooms
-         SET "lastSeqId" = "lastSeqId" + 1
-       WHERE id = $1
-       RETURNING "lastSeqId"`,
-      [roomId],
-    );
-    if (!result.length) {
-      throw new Error(`ChatRoom ${roomId} not found`);
-    }
-    return Number(result[0].lastSeqId);
+    const result = await this.repo
+      .createQueryBuilder()
+      .update()
+      .set({ lastSeqId: () => '"lastSeqId" + 1' })
+      .where('id = :id', { id: roomId })
+      .returning(['lastSeqId'])
+      .execute();
+
+    const raw = result.raw?.[0];
+    if (!raw) throw new Error(`ChatRoom ${roomId} not found`);
+    return Number(raw.lastSeqId);
   }
 }

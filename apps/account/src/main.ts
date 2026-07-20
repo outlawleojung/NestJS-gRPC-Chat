@@ -12,6 +12,7 @@ async function bootstrap(): Promise<void> {
         url: process.env.ACCOUNT_GRPC_URL ?? '0.0.0.0:5001',
         package: ACCOUNT_PACKAGE,
         protoPath: protoPath('account.proto'),
+        loader: { longs: String, enums: String },
       },
     },
   );
