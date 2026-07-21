@@ -1,7 +1,5 @@
 # NestJS-gRPC-Chat
 
-[![CI](https://github.com/outlawleojung/NestJS-gRPC-Chat/actions/workflows/ci.yml/badge.svg)](https://github.com/outlawleojung/NestJS-gRPC-Chat/actions/workflows/ci.yml)
-
 > **NestJS 기반 실시간 채팅 MSA 보일러플레이트** — Gateway + gRPC + Socket.IO + NATS + Redis
 
 실제 운영한 실시간 번역 채팅 서비스의 아키텍처 패턴을 참고해, 핵심 MSA 구성 요소만 정제해서 새로 작성한 보일러플레이트입니다.
