@@ -11,6 +11,9 @@ import {
   Subscription,
 } from 'nats';
 
+/** 모든 payload를 JSON으로 인코딩·디코딩. 각 인스턴스마다 재생성할 이유가 없어 모듈 상수로 둔다. */
+const codec = JSONCodec<unknown>();
+
 /**
  * NATS 클라이언트 래퍼.
  *  - 각 Pod마다 하나씩 붙어서 Pub/Sub으로 이벤트를 주고받음
@@ -20,7 +23,6 @@ import {
 export class NatsService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(NatsService.name);
   private connection!: NatsConnection;
-  private readonly codec = JSONCodec<unknown>();
   private readonly subscriptions: Subscription[] = [];
 
   async onModuleInit(): Promise<void> {
@@ -35,7 +37,7 @@ export class NatsService implements OnModuleInit, OnModuleDestroy {
   }
 
   publish<T>(subject: string, payload: T): void {
-    this.connection.publish(subject, this.codec.encode(payload));
+    this.connection.publish(subject, codec.encode(payload));
   }
 
   /**
@@ -52,7 +54,7 @@ export class NatsService implements OnModuleInit, OnModuleDestroy {
     (async () => {
       for await (const msg of sub) {
         try {
-          const decoded = this.codec.decode(msg.data) as T;
+          const decoded = codec.decode(msg.data) as T;
           await handler(decoded, msg.subject);
         } catch (err) {
           this.logger.error(
