@@ -4,6 +4,9 @@
   "description": "NestJS monorepo showcasing MSA with Gateway + gRPC + Socket.IO + NATS + Redis",
   "private": true,
   "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "nest build",
     "build:gateway": "nest build gateway",
