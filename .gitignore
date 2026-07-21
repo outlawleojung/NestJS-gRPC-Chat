@@ -1,7 +1,12 @@
 node_modules/
 dist/
 *.log
+*.tmp
+
+# OS
 .DS_Store
+Thumbs.db
+Desktop.ini
 
 # env
 .env
@@ -11,11 +16,15 @@ dist/
 # IDE
 .vscode/*
 !.vscode/settings.json
+!.vscode/launch.json
 .idea/
+*.swp
+*.swo
 
 # nest
 .nest-cli-cache
 
-# misc
+# tests / coverage
 coverage/
 .nyc_output/
+junit.xml
