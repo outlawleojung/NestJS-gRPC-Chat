@@ -70,6 +70,8 @@ export class RealtimeGateway
       seqId: number;
       createdAt: string;
     }>(chatRoomMessageSubjectPattern, (payload) => {
+      // NestJS 초기화 순서에 따라 첫 이벤트가 서버 바인딩 전에 올 수 있으므로 guard.
+      if (!this.server) return;
       // Socket.IO room = "room:{roomId}" 규칙
       this.server.to(`room:${payload.roomId}`).emit('message', payload);
     });
