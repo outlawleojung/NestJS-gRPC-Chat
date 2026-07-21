@@ -189,12 +189,19 @@ pnpm test:watch    # 파일 변경 감지
 pnpm test:cov      # 커버리지 리포트
 ```
 
-- `chat.service.spec.ts` — 룸 생성, `saveAndPublish`(seqId 채번 + NATS publish), listMessages limit 클램프
-- `friend.service.spec.ts` — 관계 등록/조회, `check`가 targetUserIds 순서 유지
-- `account.service.spec.ts` — get이 `NotFoundException` 던지는 케이스, create 위임
-- `nats.subjects.spec.ts` — subject 문자열 규칙
+**단위 테스트 (Jest + `@nestjs/testing`)**
 
-E2E 실시간 시나리오 (다중 Pod → NATS 전파) 는 `scripts/test-realtime.mjs` 참고 —
+| 파일 | 대상 | 확인하는 것 |
+|---|---|---|
+| `chat.service.spec.ts` | `ChatService` | 룸 생성, `saveAndPublish`(seqId 채번 → NATS publish), listMessages limit 클램프 |
+| `chat.controller.spec.ts` | `ChatController` | gRPC handler DTO 매핑 (createRoom · listMessages · saveMessage) |
+| `friend.service.spec.ts` | `FriendService` | 관계 등록·조회, `check`가 targetUserIds 순서 유지 |
+| `account.service.spec.ts` | `AccountService` | `get`이 `NotFoundException` 던지는 케이스, `create` 위임 |
+| `base.repository.spec.ts` | `BaseRepository<T>` | `createAndSave` 순서, `findById` 위임 |
+| `realtime.gateway.spec.ts` | `RealtimeGateway` | NATS 구독, `onJoin` → socket.join + Redis 등록 |
+| `nats.subjects.spec.ts` | subject builder | `chat.room.{roomId}.message` 규칙 |
+
+**E2E 실시간 시나리오** (다중 Pod → NATS 전파) 는 `scripts/test-realtime.mjs` 참고 —
 로컬에서 인프라와 5개 서비스를 띄운 뒤 `node scripts/test-realtime.mjs` 로 실행합니다.
 
 ## Portfolio Context
