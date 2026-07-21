@@ -19,6 +19,9 @@
     "start:all": "concurrently -k -n gateway,account,chat,friend,hub -c blue,green,magenta,cyan,yellow \"pnpm start:gateway\" \"pnpm start:account\" \"pnpm start:chat\" \"pnpm start:friend\" \"pnpm start:realtime-hub\"",
     "infra:up": "docker compose up -d",
     "infra:down": "docker compose down",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{apps,libs}/**/*.ts\" --fix"
   },
@@ -43,11 +46,15 @@
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.1.28",
     "@types/express": "^4.17.21",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.11.0",
     "concurrently": "^8.2.2",
+    "jest": "^30.4.2",
     "prettier": "^3.2.5",
     "socket.io-client": "^4.8.3",
+    "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
