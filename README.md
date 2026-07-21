@@ -1,5 +1,7 @@
 # NestJS-gRPC-Chat
 
+[![CI](https://github.com/outlawleojung/NestJS-gRPC-Chat/actions/workflows/ci.yml/badge.svg)](https://github.com/outlawleojung/NestJS-gRPC-Chat/actions/workflows/ci.yml)
+
 > **NestJS 기반 실시간 채팅 MSA 보일러플레이트** — Gateway + gRPC + Socket.IO + NATS + Redis
 
 실제 운영한 실시간 번역 채팅 서비스의 아키텍처 패턴을 참고해, 핵심 MSA 구성 요소만 정제해서 새로 작성한 보일러플레이트입니다.
@@ -180,6 +182,22 @@ curl -X POST http://localhost:3000/rooms \
 
 # 4) 소켓 연결 → join → send (Socket.IO 클라이언트)
 ```
+
+## Tests
+
+```bash
+pnpm test          # 모든 단위 테스트 실행
+pnpm test:watch    # 파일 변경 감지
+pnpm test:cov      # 커버리지 리포트
+```
+
+- `chat.service.spec.ts` — 룸 생성, `saveAndPublish`(seqId 채번 + NATS publish), listMessages limit 클램프
+- `friend.service.spec.ts` — 관계 등록/조회, `check`가 targetUserIds 순서 유지
+- `account.service.spec.ts` — get이 `NotFoundException` 던지는 케이스, create 위임
+- `nats.subjects.spec.ts` — subject 문자열 규칙
+
+E2E 실시간 시나리오 (다중 Pod → NATS 전파) 는 `scripts/test-realtime.mjs` 참고 —
+로컬에서 인프라와 5개 서비스를 띄운 뒤 `node scripts/test-realtime.mjs` 로 실행합니다.
 
 ## Portfolio Context
 
